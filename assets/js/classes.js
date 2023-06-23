@@ -42,10 +42,11 @@ class LittleMonster extends Character {
     constructor() {
         super("Little Monster")
         this.life = 60;
-        this.attack = 4;
+        this.attack = 8;
         this.defense = 2;
         this.maxLife = this.life;
     }
+    
 }
 
 class BigMonster extends Character {
@@ -59,12 +60,13 @@ class BigMonster extends Character {
 }
 
 class Stage {
-    constructor(fighter1, fighter2, fighter1El, fighter2El, logObject) {
+    constructor(fighter1, fighter2, fighter1El, fighter2El, logObject, imgEl) {
     this.fighter1 = fighter1;
     this.fighter2 = fighter2;
     this.fighter1El = fighter1El;
     this.fighter2El = fighter2El;
-    this.log = logObject
+    this.log = logObject;
+    this.imgEl = imgEl;
     }
 
     start(){
@@ -83,9 +85,36 @@ class Stage {
         let f2Pct = (this.fighter2.life / this.fighter2.maxLife) * 100;
         this.fighter2El.querySelector('.bar').style.width = `${f2Pct}%`
 
+            //Trocar personagem depois de morrer
         if(this.fighter2.life <= 0) {
-            this.fighter2 = new BigMonster ();
+            this.fighter2 = new BigMonster ()
+            this.imgEl.src = "assets/img/bigMonster.png"
+            showVictory()
         }
+
+            //Se o personagem morrer
+        
+        if(this.fighter1.life <= 0) {
+            showDefeat()
+        }
+
+            // Colorir vida do lutador 1
+        if(this.fighter1.life <= this.fighter1.maxLife && this.fighter1.life <= (50/100 * this.fighter1.maxLife)) {
+            this.fighter1El.querySelector('.bar').style.backgroundColor = "red"
+
+        } else {
+            this.fighter1El.querySelector('.bar').style.backgroundColor = "green"
+        }
+
+            // Colorir vida do lutador 2
+        if(this.fighter2.life <= this.fighter2.maxLife && this.fighter2.life <= (50/100 * this.fighter2.maxLife)) {
+            this.fighter2El.querySelector('.bar').style.backgroundColor = "red"
+
+        } else {
+            this.fighter2El.querySelector('.bar').style.backgroundColor = "green"
+        }
+
+
     }
 
     doAttack(attacking, attacked) {

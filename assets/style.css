@@ -1,6 +1,12 @@
+* {
+    margin: 0px;
+}
+
 .fightarea {
     display: flex;
     gap:20px;
+    background-image: url('/assets/img/background.jpg');
+    height: 360px;
 }
 
 #char, #monster {
@@ -20,13 +26,62 @@
 }
 
 .log {
-    border: 1px dotted #999;
+    border: 1px dotted #ffffff;
     height: 200px;
     overflow-y: scroll;
+    font-size: 16px;
+    font-family: Arial;
+    background-color: rgba(128, 128, 128, 0.63);
+    
 }
 
 li {
     list-style: none;
     margin-top: 2px;
     margin-bottom: 9px;
+    color: white;
+}
+
+.background {
+    background-image: url('/assets/img/stone-background.jpeg') ;
+    height: 600px;
+    width: 100%;
+}
+
+#char .img {
+    margin-top: 82px;
+    margin-left: 50px;
+}
+
+#monster .img {
+    margin-top: 92px;
+    margin-left: 300px;
+}
+
+#roundImgVictory, #roundImgDefeated, #restart {
+    position: relative;
+    float: right;
+}
+
+#roundImgVictory {
+    display: none;
+}
+
+#roundImgDefeated {
+    display: none;
+}
+
+#restart {
+    display: none;
+    padding: 10px;
+    border-radius: 10px;
+    left: 13%;
+    background-color: #5c7074;
+}
+
+.attackButton {
+    padding: 10px;
+    border-radius: 10px;
+    background-color: rgb(209, 209, 209);
+    margin: 0px;
 }

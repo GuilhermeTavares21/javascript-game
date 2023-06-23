@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>javascript game</title>
     <link rel="stylesheet" href="assets/style.css">
 </head>
 <body>
@@ -15,7 +15,10 @@
             <strong class="name">--</strong>
             <div>
                 <button class="attackButton">Atacar</button>
-             </div>          
+             </div> 
+             <div class="img"><img src="assets/img/warrior.png" id="charImg"></div>
+             <div class="roundVictory"><img src="assets/img/vitory.png" id="roundImgVictory"></div>
+             <div class="roundDefeat"><img src="assets/img/defeat.png" id="roundImgDefeated"><button id="restart" onclick="location.reload()" >Recomeçar</button></div>          
         </div>
 
         <div id="monster">
@@ -25,11 +28,14 @@
             <strong class="name">--</strong>
             <div>
                 <button class="attackButton">Atacar</button>
-             </div>   
+             </div>
+             <div class="img"><img src="assets/img/littleMonster.png" id="monsterImg"></div>     
         </div>
-    </div>
 
+    </div>
+    <div class="background">
     <ul class="log"></ul>
+    </div>
 
 
 
