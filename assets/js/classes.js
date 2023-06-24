@@ -31,7 +31,7 @@ class Knight extends Character {
 class Sorcerer extends Character {
     constructor(name) {
         super(name);
-        this.life = 110;
+        this.life = 1100;
         this.attack = 7;
         this.defense = 5;
         this.maxLife = this.life;
@@ -42,7 +42,7 @@ class LittleMonster extends Character {
     constructor() {
         super("Little Monster")
         this.life = 60;
-        this.attack = 8;
+        this.attack = 4;
         this.defense = 2;
         this.maxLife = this.life;
     }
@@ -59,21 +59,52 @@ class BigMonster extends Character {
     }
 }
 
+class Centaur extends Character {
+    constructor() {
+        super("Centaur Warrior")
+        this.life = 250;
+        this.attack = 9;
+        this.defense = 8;
+        this.maxLife = this.life;
+    }
+}
+
+class FirstBoss extends Character {
+    constructor() {
+        super("Dark Knight Boss")
+        this.life = 160;
+        this.attack = 10;
+        this.defense = 8;
+        this.maxLife = this.life;
+    }
+}
+
 class Stage {
-    constructor(fighter1, fighter2, fighter1El, fighter2El, logObject, imgEl) {
+    constructor(fighter1, fighter2, fighter1El, fighter2El, logObject, imgEl, round, roundEl, pointsAvailable, pointsAvailableEl, showHPEl, showAttackEl, showDefenseEl, pointsAddHPEl, pointsAddAttackEl, pointsAddDefenseEl) {
     this.fighter1 = fighter1;
     this.fighter2 = fighter2;
     this.fighter1El = fighter1El;
     this.fighter2El = fighter2El;
     this.log = logObject;
     this.imgEl = imgEl;
+    this.round = round;
+    this.roundEl = roundEl;
+    this.pointsAvailable = pointsAvailable;
+    this.pointsAvailableEl = pointsAvailableEl;
+    this.showHPEl = showHPEl;
+    this.showAttackEl = showAttackEl;
+    this.showDefenseEl = showDefenseEl;
+    this.pointsAddHPEl = pointsAddHPEl;
+    this.pointsAddAttackEl = pointsAddAttackEl;
+    this.pointsAddDefenseEl = pointsAddDefenseEl;
     }
 
     start(){
         this.update();
 
         this.fighter1El.querySelector('.attackButton').addEventListener('click', () => this.doAttack(this.fighter1, this.fighter2))
-        this.fighter2El.querySelector('.attackButton').addEventListener('click', () => this.doAttack(this.fighter2, this.fighter1))
+        this.fighter1El.querySelector('.attackButton').addEventListener('click', () => this.doAttack(this.fighter2, this.fighter1))
+
     }
 
     update() {
@@ -85,13 +116,15 @@ class Stage {
         let f2Pct = (this.fighter2.life / this.fighter2.maxLife) * 100;
         this.fighter2El.querySelector('.bar').style.width = `${f2Pct}%`
 
+        this.pointsAvailableEl.innerHTML = this.pointsAvailable
+        this.showHPEl.innerHTML = this.fighter1.maxLife;
+        this.showAttackEl.innerHTML = this.fighter1.attack;
+        this.showDefenseEl.innerHTML = this.fighter1.defense;
+
             //Trocar personagem depois de morrer
         if(this.fighter2.life <= 0) {
-            this.fighter2 = new BigMonster ()
-            this.imgEl.src = "assets/img/bigMonster.png"
-            showVictory()
+            this.updateRound()
         }
-
             //Se o personagem morrer
         
         if(this.fighter1.life <= 0) {
@@ -114,11 +147,41 @@ class Stage {
             this.fighter2El.querySelector('.bar').style.backgroundColor = "green"
         }
 
-
+            // Adicionar Atributos
+        if (this.pointsAvailable > 0) {
+            this.pointsAddHPEl.style.display = "inline";
+            this.pointsAddAttackEl.style.display = "inline";
+            this.pointsAddDefenseEl.style.display = "inline";
+        }
+ 
     }
 
-    doAttack(attacking, attacked) {
-        if(attacking.life <= 0 || attacked.life <= 0 ) {
+    updateRound () {
+        round++
+        showVictory()
+        showRound()
+        roundEl.innerHTML = round
+        this.pointsAvailable += 2
+
+        // Controle de Rounds
+
+        if ( round > 1 && round <= 5 ) {
+            this.fighter2 = new LittleMonster();
+            this.imgEl.src = "/assets/img/littleMonster.png"
+        } else if ( round > 5  && round < 10) {
+            this.fighter2 = new BigMonster();
+            this.imgEl.src= "assets/img/bigMonster.png"
+        } else if ( round == 10) {
+            this.fighter2 = new FirstBoss();
+            this.imgEl.src= "assets/img/warriorBoss.png"
+        } else {
+            this.fighter2 = new Centaur();
+            this.imgEl.src = "assets/img/centaurWarrior.png"
+        }
+    }
+
+    doAttack(attacking, monster) {
+        if(attacking.life <= 0 || monster.life <= 0 ) {
             this.log.addMessage('Morto')
             return;
         }
@@ -127,19 +190,23 @@ class Stage {
         let defenseFactor = (Math.random() * 2).toFixed(2);
 
         let actualAttack = attacking.attack * attackFactor;
-        let actualDefense = attacked.defense * defenseFactor;
+        let actualDefense = monster.defense * defenseFactor;
 
         if (actualAttack > actualDefense) {
-            attacked.life -= actualAttack
-            this.log.addMessage((`${attacking.name} causou ${actualAttack.toFixed(2)} de dano em ${attacked.name}`))
+            monster.life -= actualAttack
+            this.log.addMessage((`${attacking.name} causou ${actualAttack.toFixed(2)} de dano em ${monster.name}`))
 
 
         }else{
-            this.log.addMessage((`${attacked.name} conseguiu defender...`))
+            this.log.addMessage((`${monster.name} conseguiu defender...`))
         }
+
+        
 
         this.update();
     }
+
+    monsterAttack() {}
 
 }
 

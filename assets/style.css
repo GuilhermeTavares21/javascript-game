@@ -7,10 +7,14 @@
     gap:20px;
     background-image: url('/assets/img/background.jpg');
     height: 360px;
+    flex-wrap: wrap;
+    word-wrap: normal;
 }
 
 #char, #monster {
     flex:1;
+    flex-wrap: wrap;
+    word-wrap: normal;
 }
 
 .lifebar {
@@ -35,7 +39,7 @@
     
 }
 
-li {
+.log li {
     list-style: none;
     margin-top: 2px;
     margin-bottom: 9px;
@@ -49,18 +53,24 @@ li {
 }
 
 #char .img {
-    margin-top: 82px;
+    margin-top:67px;
     margin-left: 50px;
 }
 
 #monster .img {
-    margin-top: 92px;
+    margin-top: 114px;
     margin-left: 300px;
 }
 
+.roundVictory, .roundDefeat {
+position: absolute;
+top: 25%;
+left: 50%;
+transform: translate(-50%, -50%);
+}
+
 #roundImgVictory, #roundImgDefeated, #restart {
-    position: relative;
-    float: right;
+display: flex;
 }
 
 #roundImgVictory {
@@ -75,8 +85,13 @@ li {
     display: none;
     padding: 10px;
     border-radius: 10px;
-    left: 13%;
     background-color: #5c7074;
+    color: #babac1;
+    position: absolute;
+    top: 10%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: 3px solid #384b52
 }
 
 .attackButton {
@@ -84,4 +99,41 @@ li {
     border-radius: 10px;
     background-color: rgb(209, 209, 209);
     margin: 0px;
+}
+
+.roundCounter {
+    position: absolute;
+    top: 11%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: none;
+}
+
+.roundCounter strong {
+    color:white;
+    font-family: arial;
+    font-size: 30px;
+    font-weight: bold;
+    -webkit-text-stroke: 1px black;
+}
+
+#round {
+    text-align: center;
+}
+
+.status {
+    color: white;
+    background-color: rgba(132, 119, 119, 0.599);
+}
+
+.status li {
+    margin-bottom: 10px;
+}
+
+.status h1 {
+    margin-bottom: 10px;
+}
+
+.addHP, .addAttack, .addDefense {
+    display: none;
 }

@@ -18,7 +18,9 @@
              </div> 
              <div class="img"><img src="assets/img/warrior.png" id="charImg"></div>
              <div class="roundVictory"><img src="assets/img/vitory.png" id="roundImgVictory"></div>
-             <div class="roundDefeat"><img src="assets/img/defeat.png" id="roundImgDefeated"><button id="restart" onclick="location.reload()" >Recomeçar</button></div>          
+             <div class="roundDefeat"><img src="assets/img/defeat.png" id="roundImgDefeated"><button id="restart" onclick="location.reload()" >Recomeçar</button></div>
+             <div class="roundCounter"><strong>Round <strong id="round"></strong></strong></div>     
+                  
         </div>
 
         <div id="monster">
@@ -27,7 +29,6 @@
             </div>
             <strong class="name">--</strong>
             <div>
-                <button class="attackButton">Atacar</button>
              </div>
              <div class="img"><img src="assets/img/littleMonster.png" id="monsterImg"></div>     
         </div>
@@ -35,7 +36,19 @@
     </div>
     <div class="background">
     <ul class="log"></ul>
+
+    <div class="status">
+        <h1>Points Available - <span id="pointsAvailable"></span> </h1> 
+        <ul class="status">
+            <li>HP <span id="showHP">0</span> <button class="addHP">+</button></li>
+            <li>Attack <span id="showAttack">0</span> <button class="addAttack">+</button></li>
+            <li>Defense <span id="showDefense">0</span> <button class="addDefense">+</button></li>
+        </ul>
     </div>
+
+    </div>
+
+
 
 
 
