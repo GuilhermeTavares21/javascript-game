@@ -31,7 +31,7 @@ class Knight extends Character {
 class Sorcerer extends Character {
     constructor(name) {
         super(name);
-        this.life = 1100;
+        this.life = 110;
         this.attack = 7;
         this.defense = 5;
         this.maxLife = this.life;
@@ -52,8 +52,8 @@ class LittleMonster extends Character {
 class BigMonster extends Character {
     constructor() {
         super("Big Monster")
-        this.life = 90;
-        this.attack = 7;
+        this.life = 180;
+        this.attack = 8;
         this.defense = 4;
         this.maxLife = this.life;
     }
@@ -72,8 +72,8 @@ class Centaur extends Character {
 class FirstBoss extends Character {
     constructor() {
         super("Dark Knight Boss")
-        this.life = 160;
-        this.attack = 10;
+        this.life = 300;
+        this.attack = 13;
         this.defense = 8;
         this.maxLife = this.life;
     }
@@ -116,7 +116,7 @@ class Stage {
         let f2Pct = (this.fighter2.life / this.fighter2.maxLife) * 100;
         this.fighter2El.querySelector('.bar').style.width = `${f2Pct}%`
 
-        this.pointsAvailableEl.innerHTML = this.pointsAvailable
+        this.pointsAvailableEl.innerHTML = pointsAvailable
         this.showHPEl.innerHTML = this.fighter1.maxLife;
         this.showAttackEl.innerHTML = this.fighter1.attack;
         this.showDefenseEl.innerHTML = this.fighter1.defense;
@@ -148,10 +148,14 @@ class Stage {
         }
 
             // Adicionar Atributos
-        if (this.pointsAvailable > 0) {
+        if (pointsAvailable > 0) {
             this.pointsAddHPEl.style.display = "inline";
             this.pointsAddAttackEl.style.display = "inline";
             this.pointsAddDefenseEl.style.display = "inline";
+        } else {
+            this.pointsAddHPEl.style.display = "none";
+            this.pointsAddAttackEl.style.display = "none";
+            this.pointsAddDefenseEl.style.display = "none";
         }
  
     }
@@ -161,7 +165,9 @@ class Stage {
         showVictory()
         showRound()
         roundEl.innerHTML = round
-        this.pointsAvailable += 2
+        pointsAvailable += 2
+        this.pointsAvailable = pointsAvailable
+        char.life = char.maxLife
 
         // Controle de Rounds
 
@@ -224,6 +230,7 @@ class Log {
     }
 
     render() {
+        this.listEl.scrollTo(0, this.listEl.scrollHeight)
         this.listEl.innerHTML = "";
 
         for(let i in this.list) {

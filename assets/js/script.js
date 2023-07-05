@@ -19,6 +19,8 @@ let pointsAddAttackEl = document.querySelector(".addAttack")
 let pointsAddDefenseEl = document.querySelector(".addDefense")
 
 pointsAddAttackEl.addEventListener("click", addAttack)
+pointsAddHPEl.addEventListener("click", addHP)
+pointsAddDefenseEl.addEventListener("click", addDefense)
 
 let showHPEl = document.querySelector('#showHP')
 let showAttackEl = document.querySelector('#showAttack')
@@ -26,10 +28,28 @@ let showDefenseEl = document.querySelector('#showDefense')
 
     // Adicionar Atributos
 
-    function addAttack () {
-        pointsAvailable - 1
-        return char.attack + 2
+function addAttack () {
+    if (pointsAvailable > 0){
+    pointsAvailable -= 1
+    char.attack += 2
+    stage.update()
     }
+}
+function addHP () {
+    if (pointsAvailable > 0){
+    pointsAvailable -= 1
+    char.maxLife += 40
+    stage.update()
+    }
+}
+function addDefense () {
+    if (pointsAvailable > 0){
+    pointsAvailable -= 1
+    char.defense += 1
+    stage.update()
+    }
+}
+
 
 //Imagens
 
